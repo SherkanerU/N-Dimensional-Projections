@@ -54,14 +54,10 @@ $$\iff \mathbf{v} = 0 $$
 $\newline$ 
 {\bf Proposition 1: } If an orthogonal projection of $\mathbf{g}$ onto $S$ exists it is unique
 \begin{proof} Let $\mathbf{a}$ and $\mathbf{b}$ be orthogonal projections of $\mathbf{g}$ onto $S$ 
-$$\Rightarrow \mathbf{a} = a_1\mathbf{u}_1 + \dots + a_k\mathbf{u}_k  \text{  and  } \mathbf{b} = b_1\mathbf{u}_1 + \dots + b_k\mathbf{u}_k $$
-Consider:
-$$\mathbf{a} - \mathbf{b} = (a_1 - b_1)\mathbf{u}_1 + \dots + (a_k - b_k)\mathbf{u}_k$$
-For every $i$ let $z_i := a_i - b_i$ and we can write:
-$$\mathbf{a} - \mathbf{b} = z_1\mathbf{u}_1 + \dots + z_k\mathbf{u}_k$$
-By defintion for an arbitrary $i \leq k$ we have: 
+\newline
+\newline By defintion for an arbitrary $i \leq k$ we have: 
 $$0 = (\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_i = (\mathbf{g} - \mathbf{a} + \mathbf{b} - \mathbf{b})\cdot\mathbf{u}_i = (\mathbf{g} - \mathbf{b} - (\mathbf{a} - \mathbf{b}) )\cdot\mathbf{u}_i $$
-$$= (\mathbf{g} - \mathbf{b})\cdot\mathbf{u}_i - (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_i = - (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_k $$ 
+$$= (\mathbf{g} - \mathbf{b})\cdot\mathbf{u}_i - (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_i = - (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_i $$ 
 $$\iff (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_i = 0$$
 Since $(\mathbf{a} - \mathbf{b}) \in S$ we can apply lemma 1:
 $$\Rightarrow (\mathbf{a} - \mathbf{b}) = 0 $$
@@ -70,3 +66,8 @@ $$\iff \mathbf{a} = \mathbf{b} $$
 
 
 \end{document}
+$$\Rightarrow \mathbf{a} = a_1\mathbf{u}_1 + \dots + a_k\mathbf{u}_k  \text{  and  } \mathbf{b} = b_1\mathbf{u}_1 + \dots + b_k\mathbf{u}_k $$
+Consider:
+$$\mathbf{a} - \mathbf{b} = (a_1 - b_1)\mathbf{u}_1 + \dots + (a_k - b_k)\mathbf{u}_k$$
+For every $i$ let $z_i := a_i - b_i$ and we can write:
+$$\mathbf{a} - \mathbf{b} = z_1\mathbf{u}_1 + \dots + z_k\mathbf{u}_k$$
