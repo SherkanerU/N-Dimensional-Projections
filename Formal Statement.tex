@@ -35,25 +35,35 @@
 
 
 \begin{document}
- \bigskip
- \centerline{\bf{Orthogonal Projections}}
+\bigskip
+\centerline{\bf{Orthogonal Projections}}
+\bigskip
+{\bf Definition:} For $S$ a subspace of $\mathbb{R}^n$ with a given basis:  $\{\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_k\}$ and a point $\mathbf{g} \in \mathbb{R}^n$ then $\mathbf{a} \in S$ is the orthogogonal projection of $\mathbf{g}$ onto $S$ if:
+$$\forall i\leq k \ \  \ \ (\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_i = 0 $$ 
+$\newline$
+{\bf Lemma 1: } For a vector sub space $S$ of $\mathbb{R}^n$ with a given basis: $\{\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_k\}$ if some vector $\mathbf{v} \in S$ is such that for all $i \leq k \ \ \mathbf{v} \cdot \mathbf{u}_i = 0$ then $\mathbf{v} = \mathbf{0}$
+\begin{proof}
+Since $\mathbf{v} \in S$ we can write:
+$$\mathbf{v} = t_1\mathbf{u}_1 + t_2\mathbf{u}_2 + \dots + t_k\mathbf{u}_k$$
+It is sufficient to show that the magnitude of $\mathbf{v}$ is 0:
+$$|\mathbf{v}|^2 = \mathbf{v}\cdot\mathbf{v} = \mathbf{v}\cdot\left(t_1\mathbf{u}_1 + t_2\mathbf{u}_2 + \dots + t_k\mathbf{u}_k\right) = t_1\mathbf{u}_1 \mathbf{v} +  t_2\mathbf{u}_2\mathbf{v} + \dots +  t_k\mathbf{u}_k\mathbf{v} = 0 $$
+$$\iff |\mathbf{v}| = 0 $$
+$$\iff \mathbf{v} = 0 $$
+\end{proof}
 
- \bigskip
-
- {\bf Defintion:} For $S$ a subspace of $\mathbb{R}^n$ with basis vectors $\{\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_k\}$ and a point $\mathbf{g} \in \mathbb{R}^n$ then $\mathbf{a} \in S$ is the orthogogonal projection of $\mathbf{g}$ onto $S$ if:
- $$\forall i\leq k\ \  \ \ (\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_i = 0 $$
- \medskip
+$\newline$ 
 {\bf Proposition 1: } If an orthogonal projection of $\mathbf{g}$ onto $S$ exists it is unique
-\begin{proof} Let $\mathbf{a}$ and $\mathbf{b}$ be orthogonal projections of $\mathbf{g}$ onto $S$ and consider:
+\begin{proof} Let $\mathbf{a}$ and $\mathbf{b}$ be orthogonal projections of $\mathbf{g}$ onto $S$ 
 $$\Rightarrow \mathbf{a} = a_1\mathbf{u}_1 + \dots + a_k\mathbf{u}_k  \text{  and  } \mathbf{b} = b_1\mathbf{u}_1 + \dots + b_k\mathbf{u}_k $$
 Consider:
 $$\mathbf{a} - \mathbf{b} = (a_1 - b_1)\mathbf{u}_1 + \dots + (a_k - b_k)\mathbf{u}_k$$
 For every $i$ let $z_i := a_i - b_i$ and we can write:
 $$\mathbf{a} - \mathbf{b} = z_1\mathbf{u}_1 + \dots + z_k\mathbf{u}_k$$
-By defintion we have: 
-$$0 = (\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_k = (\mathbf{g} - \mathbf{a} + \mathbf{b} - \mathbf{b})\cdot\mathbf{u}_k = (\mathbf{g} - \mathbf{b} - (\mathbf{a} - \mathbf{b}) )\cdot\mathbf{u}_k $$
-$$= (\mathbf{g} - \mathbf{b})\cdot\mathbf{u}_k - (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_k = - (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_k $$ 
-$$\iff (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_k = 0$$
+By defintion for an arbitrary $i \leq k$ we have: 
+$$0 = (\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_i = (\mathbf{g} - \mathbf{a} + \mathbf{b} - \mathbf{b})\cdot\mathbf{u}_i = (\mathbf{g} - \mathbf{b} - (\mathbf{a} - \mathbf{b}) )\cdot\mathbf{u}_i $$
+$$= (\mathbf{g} - \mathbf{b})\cdot\mathbf{u}_i - (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_i = - (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_k $$ 
+$$\iff (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_i = 0$$
+Since $(\mathbf{a} - \mathbf{b}) \in S$ we can apply lemma 1, meaning that: $(\mathbf{a} - \mathbf{b}) = \mathbf{0}$ 
 \end{proof}
 
 
