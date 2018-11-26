@@ -38,7 +38,7 @@
 \bigskip
 \centerline{\bf{Orthogonal Projections}}
 \bigskip
-{\bf Definition:} For $S$ a subspace of $\mathbb{R}^n$ with a given basis:  $\{\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_k\}$ and a point $\mathbf{g} \in \mathbb{R}^n$ then $\mathbf{a} \in S$ is the orthogogonal projection of $\mathbf{g}$ onto $S$ if:
+{\bf $\newline$ Definition:} For $S$ a subspace of $\mathbb{R}^n$ with a given basis:  $\{\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_k\}$ and a point $\mathbf{g} \in \mathbb{R}^n$ then $\mathbf{a} \in S$ is the orthogogonal projection of $\mathbf{g}$ onto $S$ if:
 $$\forall i\leq k \ \  \ \ (\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_i = 0 $$ 
 $\newline$
 {\bf Lemma 1: } For a vector sub space $S$ of $\mathbb{R}^n$ with a given basis: $\{\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_k\}$ if some vector $\mathbf{v} \in S$ is such that for all $i \leq k \ \ \mathbf{v} \cdot \mathbf{u}_i = 0$ then $\mathbf{v} = \mathbf{0}$
@@ -62,6 +62,17 @@ $$\iff (\mathbf{a} -\mathbf{b})\cdot\mathbf{u}_i = 0$$
 Since $(\mathbf{a} - \mathbf{b}) \in S$ we can apply lemma 1:
 $$\Rightarrow (\mathbf{a} - \mathbf{b}) = 0 $$
 $$\iff \mathbf{a} = \mathbf{b} $$
+\end{proof}
+$\newline$
+{\bf Proposition 2: } If $\mathbf{a} \in S$ is an orthogonal projection of $\mathbf{g}$ relative to a basis: $\{\mathbf{u}_1, \mathbf{u}_2, \dots, \mathbf{u}_k\}$ then it is also orthogonal relative to any other basis
+\begin{proof}
+suppose that $\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k\}$ is also a basis of $S$ and take an arbitrary $\mathbf{v}_i$
+$$(\mathbf{g} - \mathbf{a})\cdot \mathbf{v}_i = (\mathbf{g} - \mathbf{a})\cdot(t_1 \mathbf{u}_1 + t_2\mathbf{u}_2 + \dots + t_k\mathbf{u}_k) \ \ \because \ \mathbf{v}_i \in S$$
+$$ = t_1(\mathbf{g} - \mathbf{a})\cdot \mathbf{u}_1 + t_2(\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_2 + \dots + t_k(\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_k = 0 $$
+$$ \Rightarrow (\mathbf{g} - \mathbf{a})\cdot\mathbf{v}_i = 0 		$$
+$\newline$
+Given the results of propositions 1 and 2, orthogonal projections are independant of choice of basis vectors and are unique.  Therefore, the following notation will be intoduced for $\mathbf{a}$ being $\mathbf{g}$'s orthogonal projection onto $S$:
+$$ P_S(\mathbf{g}) = \mathbf{a} $$
 \end{proof}
 
 
