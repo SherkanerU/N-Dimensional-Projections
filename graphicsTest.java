@@ -37,6 +37,7 @@ public class graphicsTest extends Canvas {
 
     public void update(Graphics g) {
         g.fillOval(100, 100, 200 + 10*globalI , 200);
+        System.out.println(getWidth() + "  " + getHeight());
     }
 
 }
