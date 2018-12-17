@@ -4,6 +4,7 @@ public class PointGraph												//this graph will maintain
 {
 	private final int V; 											//number of vertices
 	private int E;													//number of edges
+	private final int PRIME;										//prime around 1000 for hashing purposes
 
 	private ArrayList<Point>[] adjacentTo;							//adjacentTo[i] denotes the list of point vertices which share an edge with i
 	private Point[] vertices;										//the points which are being represented in this graph
@@ -42,9 +43,25 @@ public class PointGraph												//this graph will maintain
 
 	public void addEdge
 
-
-	public void validatePoint(Point[] )								//checks to ensure points are not repeated 
+	//this method tries to find repeated points within an array by filtering them by the sums of their vertexes
+	public void validatePoint(Point[] points)								//checks to ensure points are not repeated 
 	{
-		
+		//im being paranoid about speed here so this will get a little complicated
+		boolean[] flags = new int[997]								//its prime beacause hash!!
+		int[] sums = new int[point.length];							//store the sums of the points
+
+		Arrays.fill(flags, Boolean.FALSE);
+
+		for (int i = 0; i < points.length; i++)						//set up the flags array
+		{
+			int sum = points[i].cordSumInt();
+
+			sums[i] = sum;
+
+			int index = sum % PRIME;
+			flags[index] += 1;
+		}
+
+
 	}
 }
