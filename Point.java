@@ -27,7 +27,7 @@ public class Point
 	{
 		if (index >= this.getDimension())
 		{
-			throw IllegalArgumentException;
+			throw new IllegalArgumentException("coordinate requested is larger than dimension");
 		}
 
 		return cords[index];
