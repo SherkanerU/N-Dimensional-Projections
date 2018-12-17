@@ -32,4 +32,22 @@ public class Point
 
 		return cords[index];
 	}
+
+	public int compareTo(Point p)										//returns 0 if equal, -1 if unequal, -2 if not of same dimension
+	{
+		if (this.getDimension() != p.getDimension())
+		{
+			return -2;
+		}
+		
+		for (int i = 0; i < cords.length; i++)
+		{
+			if (this.getCord(i) != p.getCord(i))
+			{
+				return -1;												//an unequal coordinate was found
+			}
+		}
+
+		return 0;														//returns without finding an unequal coordinate
+	}
 }
