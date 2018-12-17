@@ -56,15 +56,9 @@ public class Point
 	public double coordinateSum()										//returns the sum of the coordinates as a double
 	{	
 		double sum = 0;
-		for (int i = 0; i < cords.length; i++)
-		{
-			sum += cords[i];
-		}
+		for (int i = 0; i < cords.length; i++){ sum += cords[i]; }
 		return sum;
 	}
 
-	public int cordSumInt()												//rounds the sum to an integer value
-	{
-		return (int)
-	}
+	public int cordSumInt(){ return (int) this.coordinateSum(); }		//return the integer rounding of this sum
 }
