@@ -1,6 +1,5 @@
 import java.util.*;
 
-
 /******************************************************************
 this is a class which stores graphs of point objects.  It uses an
 adjacency list data structure, as of writing this it only has basic 
@@ -47,7 +46,27 @@ public class PointGraph
 
 	public PointGraph (PointGraph g)								//construct a graph using another graph
 	{
-		this.V = g.V();
+		validatePoints(g.vertices());								//ensure a proper graph is passed
+
+		this.V = g.V();												//set up vertex and edge trackers
+		this.E = g.E();
+
+		vertices = new Point[g.V()];								//set up point and adjacency list info
+		adjacentTo = (ArrayList<Integer>) new ArrayList[g.V()];
+
+		for(int v = 0; v < g.V(), v++)								//copy over points
+		{
+			vertices[i] = g.vertex(v);
+		}
+
+		for (int v = 0; v < V; v++)									//copy over edges!
+		{
+			ArryaList<Integer> currentAdj = g.adjTo(v);
+			for (Integer i: currentAdj)
+			{
+				adjacentTo[v].add(i);
+			}
+		}
 	}
 
 	/*********************************************
@@ -61,7 +80,8 @@ public class PointGraph
 
 		E++;
 
-		
+		adjacentTo[v].add(w);
+		adjacentTo[w].add(v);
 	}
 
 
@@ -73,6 +93,11 @@ public class PointGraph
 	public int E(){return this.E;}									//get num edges
 	public Point[] vertices(){return vertices;}						//get vertex array
 	public Point vertex(int v) {return vertices[v];}				//the point object being stores as v in vertices[v]
+	public int dimension()											//return the dimension of the points in the graph
+	{
+		validateDimensions(vertices);
+		return vertices[0].getDimension();
+	}
 
 	public Iterable<Integer> adjTo(int v){return adjacentTo[v];}	//get the points connected to v
 
