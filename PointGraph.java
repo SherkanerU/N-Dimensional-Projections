@@ -29,7 +29,7 @@ public class PointGraph
 		vertices = new Point[V];
 	}
 
-	public PointGraph (PointGraph g)
+	public PointGraph (PointGraph g)								//construct a graph using another graph
 	{
 		this.V = g.V();
 
@@ -37,6 +37,8 @@ public class PointGraph
 
 	public int V(){return this.V;}									//get num vertices
 	public int E(){return this.E;}									//get num edges
+	public Point[] vertices(){return vertices;}						//get vertex array
 
-	
+	public Iterable<Point> adjTo(int )
+
 }
