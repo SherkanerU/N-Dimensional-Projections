@@ -61,4 +61,14 @@ public class Point
 	}
 
 	public int cordSumInt(){ return (int) this.coordinateSum(); }		//return the integer rounding of this sum
+
+	public String toString()
+	{
+		String ret = "[ ";
+		for (double d: cords)
+		{
+			ret += d + " ";	
+		}
+		return ret;
+	}
 }

@@ -46,22 +46,33 @@ public class PointGraph												//this graph will maintain
 	//this method tries to find repeated points within an array by filtering them by the sums of their vertexes
 	public void validatePoint(Point[] points)								//checks to ensure points are not repeated 
 	{
-		//im being paranoid about speed here so this will get a little complicated
-		boolean[] flags = new int[997]								//its prime beacause hash!!
 		int[] sums = new int[point.length];							//store the sums of the points
-
-		Arrays.fill(flags, Boolean.FALSE);
 
 		for (int i = 0; i < points.length; i++)						//set up the flags array
 		{
 			int sum = points[i].cordSumInt();
 
 			sums[i] = sum;
-
-			int index = sum % PRIME;
-			flags[index] += 1;
 		}
 
+		//now we need to detect duplicated in the array of sums
+		//this is n^2 in the size of the points array
+		//might make it faster in the future, who knows
+		for (int i = 0; i < sums.length; i ++)
+		{
+			int targetSum = sums[i];
+			for (int j = 1 + i; j < sum.length; j++)
+			{
+				if (sum[j] == targetSum)
+				{
+					if (points[i].equals(points[j]))
+					{
+						throw new IllegalStateException("point " +  + points[i].toString() + " at: " i + " and point " + points[j].toString() + "at: " + j + " found to be the same");
+					}
+				}
+			}
+		}
 
+		System.out.println("the points passed the test! (this should be taken out when finished)");
 	}
 }
