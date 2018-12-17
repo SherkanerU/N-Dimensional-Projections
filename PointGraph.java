@@ -24,7 +24,7 @@ public class PointGraph
 
 	public PointGraph (int V)
 	{
-		this.V = V;						//setting uo
+		this.V = V;						//setting up
 		this.E = 0;
 		vertices = new Point[V];
 	}
