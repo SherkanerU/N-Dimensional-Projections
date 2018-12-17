@@ -1,16 +1,31 @@
 import java.util.*;
 
-public class PointGraph												//this graph will maintain
+
+/******************************************************************
+this is a class which stores graphs of point objects.  It uses an
+adjacency list data structure, as of writing this it only has basic 
+storage and verification methods.  It will interface with a graphical
+display class in order to plot the points and edges.
+*******************************************************************/
+public class PointGraph											
 {
 	private final int V; 											//number of vertices
 	private int E;													//number of edges
-	private final int PRIME;										//prime around 1000 for hashing purposes
+	private final int PRIME = 997;									//prime around 1000 for hashing purposes
 
-	private ArrayList<Point>[] adjacentTo;							//adjacentTo[i] denotes the list of point vertices which share an edge with i
+	private ArrayList<Integer>[] adjacentTo;						//adjacentTo[i] denotes the list of point vertices which share an edge with i
 	private Point[] vertices;										//the points which are being represented in this graph
 
+	/***************************************************
+						Constructors
+	***************************************************/
+
+	@SuppressWarnings("unchecked")
 	public PointGraph (Point[] points)
 	{
+
+		validatePoints(points);
+
 		vertices = new Point[points.length];						//initialize the point array as the size of the one passed
 		for (int i = 0; i < points.length; i++) 					//copy the points over
 		{
@@ -20,7 +35,7 @@ public class PointGraph												//this graph will maintain
 		this.V = points.length;										//setting up more instance data
 		this.E = 0;
 
-		adjacentTo = new ArrayList<Point>[points.length];
+		adjacentTo = (ArrayList<Integer>[]) new ArrayList[points.length];
 	}
 
 	public PointGraph (int V)
@@ -35,20 +50,52 @@ public class PointGraph												//this graph will maintain
 		this.V = g.V();
 	}
 
+	/*********************************************
+						Setters
+	**********************************************/
+
+	public void addEdge(int v, int w)								//adds an edge between vertices[v] and vertices[w]
+	{
+		validateVertex(v);
+		validateVertex(w);
+
+		E++;
+
+		
+	}
+
+
+	/**********************************************
+				       Getters
+	**********************************************/
+
 	public int V(){return this.V;}									//get num vertices
 	public int E(){return this.E;}									//get num edges
 	public Point[] vertices(){return vertices;}						//get vertex array
+	public Point vertex(int v) {return vertices[v];}				//the point object being stores as v in vertices[v]
 
-	public Iterable<Point> adjTo(int v){return adjacentTo[v];}		//get the points connected to v
+	public Iterable<Integer> adjTo(int v){return adjacentTo[v];}	//get the points connected to v
 
-	public void addEdge
 
-	//this method tries to find repeated points within an array by filtering them by the sums of their vertexes
-	public void validatePoint(Point[] points)								//checks to ensure points are not repeated 
+	/*************************************************
+			 Validation and Checker Methods
+	*************************************************/
+
+	public void validateVertex(int v)								//verifies that the specified vertex exists in the graph
 	{
-		int[] sums = new int[point.length];							//store the sums of the points
+		if (v < 0 || v >= V){throw new IllegalArgumentException("the given vertex: " + v + " is not in the graph"); }
+	}
 
-		for (int i = 0; i < points.length; i++)						//set up the flags array
+	//this method tries to find repeated points within 
+	//an array by filtering them by the sums of their vertexes
+	public void validatePoints(Point[] points)						//checks to ensure points are not repeated 
+	{
+
+		if (points.length == 0){throw new IllegalArgumentException("cannot pass empty point array");}
+
+		int[] sums = new int[points.length];						//store the sums of the points
+
+		for (int i = 0; i < points.length; i++)						//populate sums array
 		{
 			int sum = points[i].cordSumInt();
 
@@ -61,18 +108,32 @@ public class PointGraph												//this graph will maintain
 		for (int i = 0; i < sums.length; i ++)
 		{
 			int targetSum = sums[i];
-			for (int j = 1 + i; j < sum.length; j++)
+			for (int j = 1 + i; j < sums.length; j++)
 			{
-				if (sum[j] == targetSum)
+				if (sums[j] == targetSum)
 				{
 					if (points[i].equals(points[j]))
 					{
-						throw new IllegalStateException("point " +  + points[i].toString() + " at: " i + " and point " + points[j].toString() + "at: " + j + " found to be the same");
+						throw new IllegalStateException("point " + points[i].toString() + " at: " + i + " and point " + points[j].toString() + "at: " + j + " found to be the same");
 					}
 				}
 			}
 		}
 
+		validateDimensions(points);
+
 		System.out.println("the points passed the test! (this should be taken out when finished)");
+	}
+
+	private void validateDimensions(Point[] points)					//verifies that the points are of the same dimensions
+	{
+		int dimension = points[0].getDimension();
+		for (int i = 0; i< points.length; i++)
+		{
+			if (points[i].getDimension() != dimension)
+			{
+				throw new IllegalStateException("points in passed array found to be of different dimensions");
+			}
+		}
 	}
 }

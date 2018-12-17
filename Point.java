@@ -51,7 +51,7 @@ public class Point
 		return 0;														//returns without finding an unequal coordinate
 	}
 
-	public boolean equals(Point p) {return this.compareTo(p) == 0}		//wrapper for the commpareTo method in the case of equals
+	public boolean equals(Point p) {return this.compareTo(p) == 0;}		//wrapper for the commpareTo method in the case of equals
 
 	public double coordinateSum()										//returns the sum of the coordinates as a double
 	{	
@@ -69,6 +69,7 @@ public class Point
 		{
 			ret += d + " ";	
 		}
+		ret += "]";
 		return ret;
 	}
 }
