@@ -85,7 +85,7 @@ public class Point
 	{
 		for (double d: c)
 		{
-			if (d < 0 || d > MAX_DIMENSION)
+			if (d < MAX_DIMENSION || d > MAX_DIMENSION)
 			{
 				throw new IllegalArgumentException("point found out of max dimension bounds");
 			}
