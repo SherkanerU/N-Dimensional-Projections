@@ -35,6 +35,10 @@ public class PointGraph
 		this.E = 0;
 
 		adjacentTo = (ArrayList<Integer>[]) new ArrayList[points.length];
+		for (int i = 0; i < V; i ++)
+		{
+			adjacentTo[i] = new ArrayList<Integer>();
+		}
 	}
 
 	public PointGraph (int V)
@@ -53,10 +57,19 @@ public class PointGraph
 
 		vertices = new Point[g.V()];								//set up point and adjacency list info
 		adjacentTo = (ArrayList<Integer>) new ArrayList[g.V()];
+		for (int i = 0; i < V; i ++)
+		{
+			adjacentTo[i] = new ArrayList<Integer>();
+		}
 
 		for(int v = 0; v < g.V(), v++)								//copy over points
 		{
-			vertices[i] = g.vertex(v);
+			double[] copyArry = new double[g.vertex(v).getDimension()]
+			for (int i = 0; i < g.vertex(v).getDimension(); i++)
+			{
+				copyArry[i] = g.vertex(v).getCord(i);
+			}
+			vertices[i] = new Point(copyArry);
 		}
 
 		for (int v = 0; v < V; v++)									//copy over edges!

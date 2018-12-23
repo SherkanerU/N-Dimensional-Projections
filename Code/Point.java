@@ -1,5 +1,7 @@
 public class Point
 {
+	private final int MAX_DIMENSION = 1000;								//all is restrained to [0, MAX_DIMENSION] 
+
 	double[] cords;
 
 	//intialize a point object with given cordinate array
@@ -20,6 +22,12 @@ public class Point
 	public int getDimension()
 	{
 		return cords.length;
+	}
+
+	//return the maximum size a coordinate can be
+	public int getMax()
+	{
+		return MAX_DIMENSION;
 	}
 
 	//0 based, gives the coordinate at the desired index
@@ -71,5 +79,16 @@ public class Point
 		}
 		ret += "]";
 		return ret;
+	}
+
+	public void verifyCoordinates(double[] c)							//I dont want coordinates larger than whatever is put up in the final 
+	{
+		for (double d: c)
+		{
+			if (d < 0 || d > MAX_DIMENSION)
+			{
+				throw new IllegalArgumentException("point found out of max dimension bounds");
+			}
+		}
 	}
 }
