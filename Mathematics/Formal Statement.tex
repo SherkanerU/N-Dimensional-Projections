@@ -70,9 +70,30 @@ suppose that $\{\mathbf{v}_1, \mathbf{v}_2, \dots, \mathbf{v}_k\}$ is also a bas
 $$(\mathbf{g} - \mathbf{a})\cdot \mathbf{v}_i = (\mathbf{g} - \mathbf{a})\cdot(t_1 \mathbf{u}_1 + t_2\mathbf{u}_2 + \dots + t_k\mathbf{u}_k) \ \ \because \ \mathbf{v}_i \in S$$
 $$ = t_1(\mathbf{g} - \mathbf{a})\cdot \mathbf{u}_1 + t_2(\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_2 + \dots + t_k(\mathbf{g} - \mathbf{a})\cdot\mathbf{u}_k = 0 $$
 $$ \Rightarrow (\mathbf{g} - \mathbf{a})\cdot\mathbf{v}_i = 0 		$$
+\end{proof}
+$\newline$
+{\bf Proposition 3} The given definition is equivalent to saying that the orthogonal projection of $\mathbf{a}$ onto $S$ (denoted $\mathbf{g}$) then $(\mathbf{g}-\mathbf{a})$ is orthogonal to every vector in $S$.
+\begin{proof}
+($\Rightarrow$) Fixing an arbitrary $\mathbf{v} \in S$ we know that $\mathbf{v}$ can be written as $\sum_{i=1}^k a_i\mathbf{u}_i$ for each $\mathbf{u}_i$ being a basis vector of $S$.  Therefore:
+$$ (\mathbf{g} - \mathbf{a})\cdot \mathbf{v} =(\mathbf{g} - \mathbf{a})\cdot \sum_{i=1}^k a_i\mathbf{u}_i = \sum_{i=1}^k (\mathbf{g} - \mathbf{a})\cdot a_i\mathbf{u}_i = 0 $$
+$(\Leftarrow)$ This is trivial because if $(\mathbf{g} - \mathbf{a})$ is orthogonal to all vectors in $S$ then in particular it is perpendicular to basis vectors of $S$.
+\end{proof}
 $\newline$
 Given the results of propositions 1 and 2, orthogonal projections are independant of choice of basis vectors and are unique.  Therefore, the following notation will be introduced for $\mathbf{a}$ being $\mathbf{g}$'s orthogonal projection onto $S$:
 $$ P_S(\mathbf{g}) = \mathbf{a} $$
+$\newline$
+{\bf Theorem 1}  If a point $\mathbf{a} \in S$ minimizes the distance between $\mathbf{g}$ and the space $S$ then $P_S(\mathbf{g}) = \mathbf{a}$
+\begin{proof} We can represent vectors in $S$ as parameterized in $k$ variables where $k$ is the dimension of the basis of $S$.  Therefore distances between $S$ and $\mathbf{g}$ can be written as:
+$$ d(t_1,t_2,\dots, t_k) = ||t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a}|| $$
+Since $d$ is always positive it suffices to consider $d^2$ when talking about local extrema.  Which can be written as:
+$$ (t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a})\cdot (t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a}) $$
+Since the product rule holds for the dot product or inner product we can write the derivate of $d^2$ with respect to the variable $t_i$ as:
+$$ 2u_i\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a})  $$
+To have a minimum we must habe that:
+$$ \forall i \leq k  \ \ \frac{\partial \, d^2}{\partial \, t_i} = 0 $$
+$$ \forall i \leq k \ \ 2u_i\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a}) = 0 $$
+$$ \iff \forall i \leq k \ \ u_i\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a})  = 0$$
+Therefore $\mathbf{a}$ satisfies this then it is $\mathbf{g}$'s orthogonal projection by my original definition.
 \end{proof}
 
 
