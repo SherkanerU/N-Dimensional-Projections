@@ -84,18 +84,70 @@ $$ P_S(\mathbf{g}) = \mathbf{a} $$
 $\newline$
 {\bf Theorem 1}  If a point $\mathbf{a} \in S$ minimizes the distance between $\mathbf{g}$ and the space $S$ then $P_S(\mathbf{g}) = \mathbf{a}$
 \begin{proof} We can represent vectors in $S$ as parameterized in $k$ variables where $k$ is the dimension of the basis of $S$.  Therefore distances between $S$ and $\mathbf{g}$ can be written as:
-$$ d(t_1,t_2,\dots, t_k) = ||t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a}|| $$
+$$ d(t_1,t_2,\dots, t_k) = ||t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{g}|| $$
 Since $d$ is always positive it suffices to consider $d^2$ when talking about local extrema.  Which can be written as:
-$$ (t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a})\cdot (t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a}) $$
+$$ (t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{g})\cdot (t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{g}) $$
 Since the product rule holds for the dot product or inner product we can write the derivate of $d^2$ with respect to the variable $t_i$ as:
-$$ 2u_i\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a})  $$
-To have a minimum we must habe that:
+$$ 2\mathbf{u}_i\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{g})  $$
+To have a minimum we must have that:
 $$ \forall i \leq k  \ \ \frac{\partial \, d^2}{\partial \, t_i} = 0 $$
-$$ \forall i \leq k \ \ 2u_i\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a}) = 0 $$
-$$ \iff \forall i \leq k \ \ u_i\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a})  = 0$$
+$$ \forall i \leq k \ \ 2\mathbf{u}_i\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{g}) = 0 $$
+$$ \iff \forall i \leq k \ \ \mathbf{u}_i\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{g})  = 0$$
 Therefore $\mathbf{a}$ satisfies this then it is $\mathbf{g}$'s orthogonal projection by my original definition.
 \end{proof}
+$\newline$
+Notice that if if we allow points in $S$ to be written as linear combinations of $S$'s basis $\mathbf{u}_i$ we can calculate the projection point by solving the system of equations:
+$$ \mathbf{u}_1\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a}) = 0 $$
+$$ \cdots $$
+$$ \mathbf{u}_k\cdot(t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{a}) = 0 $$
+Which is equivalent to:
+$$ \mathbf{u}_1 \cdot t_1\mathbf{u}_{1} + \mathbf{u}_1 \cdot t_2\mathbf{u}_{2} + \dots + \mathbf{u}_1 \cdot t_k\mathbf{u}_{k} = \mathbf{u}_1 \cdot \mathbf{a} $$
+$$ \cdots $$
+$$ \mathbf{u}_k \cdot t_1\mathbf{u}_{1} + \mathbf{u}_k \cdot t_2\mathbf{u}_{2} + \dots + \mathbf{u}_k \cdot t_k\mathbf{u}_{k} = \mathbf{u}_k \cdot \mathbf{a} $$
+Which is again equivalent to solving the matrix equation:
+$$ \begin{bmatrix}
+	\mathbf{u}_1 \cdot \mathbf{u}_1  & \mathbf{u}_1 \cdot \mathbf{u}_2 & \dots & \mathbf{u}_1 \cdot \mathbf{u}_k \\
+	\mathbf{u}_2 \cdot \mathbf{u}_1  & \mathbf{u}_2 \cdot \mathbf{u}_2 & \dots & \mathbf{u}_2 \cdot \mathbf{u}_k \\
+	\cdots & \cdots & \cdots & \cdots \\
+	\mathbf{u}_k \cdot \mathbf{u}_1 & \mathbf{u}_k \cdot \mathbf{u}_2 & \dots & \mathbf{u}_k \cdot \mathbf{u}_k 
+	\end{bmatrix}
+	\begin{bmatrix}
+	t_1 \\
+	t_2 \\
+	\dots \\
+	t_k
+	\end{bmatrix}	
+	= 
+	\begin{bmatrix}
+	\mathbf{u}_1 \cdot \mathbf{a} \\
+	\mathbf{u}_2 \cdot \mathbf{a} \\
+	\dots \\
+	\mathbf{u}_k \cdot \mathbf{a}
+	\end{bmatrix}
+ $$
+Taking for granted that this matrix is invertable we can calculate $P_S(\mathbf{g})$'s coordinates with respect to the chosen basis as:
+$$ \begin{bmatrix}
+	t_1 \\
+	t_2 \\
+	\dots \\
+	t_k
+	\end{bmatrix}	
+	= 
+	\begin{bmatrix}
+	\mathbf{u}_1 \cdot \mathbf{u}_1  & \mathbf{u}_1 \cdot \mathbf{u}_2 & \dots & \mathbf{u}_1 \cdot \mathbf{u}_k \\
+	\mathbf{u}_2 \cdot \mathbf{u}_1  & \mathbf{u}_2 \cdot \mathbf{u}_2 & \dots & \mathbf{u}_2 \cdot \mathbf{u}_k \\
+	\cdots & \cdots & \cdots & \cdots \\
+	\mathbf{u}_k \cdot \mathbf{u}_1 & \mathbf{u}_k \cdot \mathbf{u}_2 & \dots & \mathbf{u}_k \cdot \mathbf{u}_k 
+	\end{bmatrix} ^{-1}
+	\begin{bmatrix}
+	\mathbf{u}_1 \cdot \mathbf{a} \\
+	\mathbf{u}_2 \cdot \mathbf{a} \\
+	\dots \\
+	\mathbf{u}_k \cdot \mathbf{a}
+	\end{bmatrix}
+$$ 
 
+\noindent This is the method employed by my program to calculate projections!
 
 \end{document}
 $$\Rightarrow \mathbf{a} = a_1\mathbf{u}_1 + \dots + a_k\mathbf{u}_k  \text{  and  } \mathbf{b} = b_1\mathbf{u}_1 + \dots + b_k\mathbf{u}_k $$
