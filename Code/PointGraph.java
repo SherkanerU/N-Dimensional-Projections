@@ -6,6 +6,8 @@ adjacency list data structure, as of writing this it only has basic
 storage and verification methods.  It will interface with a graphical
 display class in order to plot the points and edges.
 *******************************************************************/
+
+@SuppressWarnings("unchecked")
 public class PointGraph											
 {
 	private final int V; 											//number of vertices
@@ -56,25 +58,25 @@ public class PointGraph
 		this.E = g.E();
 
 		vertices = new Point[g.V()];								//set up point and adjacency list info
-		adjacentTo = (ArrayList<Integer>) new ArrayList[g.V()];
+		adjacentTo = (ArrayList<Integer>[]) new ArrayList[g.V()];
 		for (int i = 0; i < V; i ++)
 		{
 			adjacentTo[i] = new ArrayList<Integer>();
 		}
 
-		for(int v = 0; v < g.V(), v++)								//copy over points
+		for(int v = 0; v < g.V(); v++)								//copy over points
 		{
-			double[] copyArry = new double[g.vertex(v).getDimension()]
+			double[] copyArry = new double[g.vertex(v).getDimension()];
 			for (int i = 0; i < g.vertex(v).getDimension(); i++)
 			{
 				copyArry[i] = g.vertex(v).getCord(i);
 			}
-			vertices[i] = new Point(copyArry);
+			vertices[v] = new Point(copyArry);
 		}
 
 		for (int v = 0; v < V; v++)									//copy over edges!
 		{
-			ArryaList<Integer> currentAdj = g.adjTo(v);
+			Iterable<Integer> currentAdj = g.adjTo(v);
 			for (Integer i: currentAdj)
 			{
 				adjacentTo[v].add(i);
@@ -85,7 +87,6 @@ public class PointGraph
 	/*********************************************
 						Setters
 	**********************************************/
-
 	public void addEdge(int v, int w)								//adds an edge between vertices[v] and vertices[w]
 	{
 		validateVertex(v);
