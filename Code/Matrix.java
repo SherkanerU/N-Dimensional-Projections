@@ -9,6 +9,33 @@ public class Matrix
 		matrix = rows;
 	}
 
+	//turns an array into either a column or row vector dependant on the type variable
+	public Matrix (double[] array, String type )
+	{
+		if (type.equals("row"))
+		{
+			double [][] set = new double[1][array.length];
+			set[0] = array;
+
+			matrix = set;
+		}
+		else if (type.equals("column"))
+		{
+			double [][] set = new double[array.length][1];
+
+			for (int i = 0; i < array.length; i++)
+			{
+				set[i][0] = array[i];
+			}
+
+			matrix = set;
+		}
+		else
+		{
+			throw new IllegalArgumentException("type not passed correctly: either row or column accepted");
+		}
+	}
+
 	/***********************************************
 					  Arithmetic
 	***********************************************/
