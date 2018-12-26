@@ -86,6 +86,11 @@ public class Matrix
 		return new Matrix(product);
 	}
 
+	public double determinant()
+	{
+		return determinant(this);
+	}
+
 	/**********************************************
 					Recursive Helpers
 	**********************************************/
@@ -94,8 +99,27 @@ public class Matrix
 	private double determinant(Matrix m)
 	{
 		validateSqure(m);
-		// finish this lol
+		if (m.rows() == 2)
+		{
+			double[][] mat = m.matrix();
+			return mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0];
+		}
+		else
+		{	
+			//top row!
+			double[] expandRow = m.matrix()[0];
+
+			double det = 0;
+
+			for (int i = 0; i < m.columns(); i++)
+			{
+				det += expandRow[i] * Math.pow(-1,i) * determinant(minor(m,0,i));
+			}
+
+			return det;
+		}
 	}
+
 
 	/***********************************************
 				   Arithmetic Helpers
@@ -135,7 +159,7 @@ public class Matrix
 		return sum;
 	}
 	//calculates the matrix resultant from removing row j and column i
-	public Matrix removeRowCol(Matrix m, int j, int i)
+	public Matrix minor(Matrix m, int j, int i)
 	{
 		if (m.rows() <= 1 || this.columns() <= 1)
 		{
