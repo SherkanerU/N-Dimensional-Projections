@@ -2,7 +2,7 @@ public class Point
 {
 	private final int MAX_DIMENSION = 1000;								//all is restrained to [0, MAX_DIMENSION] 
 
-	double[] cords;
+	private double[] cords;
 
 	//intialize a point object with given cordinate array
 	public Point (double[] c)
@@ -40,6 +40,8 @@ public class Point
 
 		return cords[index];
 	}
+
+	public double[] cords(){return cords;}
 
 	public int compareTo(Point p)										//returns 0 if equal, -1 if unequal, -2 if not of same dimension
 	{
