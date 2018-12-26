@@ -61,11 +61,8 @@ public class Vector extends Point
 	/*********************************************
 					   Helpers
 	*********************************************/
-	private double arrayInnerProd(double[] other)
+	private double arrayInnerProd(double[] a, double[] b)
 	{
-		double[] a = this.cords();
-		double[] b = other.cords();
-
 		validateLengths(a,b);
 
 		double sum = 0;

@@ -3,6 +3,10 @@ public class Matrix
 {
 	private double[][] matrix;
 
+	/*********************************************
+					Constructors
+	**********************************************/
+
 	//initialize a matrix from a two dimensional array
 	public Matrix(double[][] rows)
 	{
@@ -34,6 +38,42 @@ public class Matrix
 		else
 		{
 			throw new IllegalArgumentException("type not passed correctly: either row or column accepted");
+		}
+	}
+
+	//initializes this list of vectors/points as a matrix, either by 
+	//column or by row depending on type
+	public Matrix (Point[] vectors, String type)
+	{
+		if (type.equals("rows"))
+		{
+			double[][] rows = new double[vectors.length][vectors[0].getDimension()];
+			for (int i = 0; i < vectors.length; i++)
+			{
+				rows[i] = vectors[i].cords();
+			}
+
+			validateDimensions(rows);
+
+			matrix = rows;
+		}
+		else if (type.equals("columns"))
+		{
+			double[][] rows = new double[vectors.length][vectors[0].getDimension()];
+			for (int i = 0; i < vectors.length; i++)
+			{
+				rows[i] = vectors[i].cords();
+			}
+
+			validateDimensions(rows);
+
+			Matrix trans = new Matrix(rows);
+			trans = trans.transpose();
+			matrix = trans.matrix();
+		}
+		else
+		{
+			throw new IllegalArgumentException("specifiy either rows or columns");
 		}
 	}
 
