@@ -91,6 +91,18 @@ public class Matrix
 		return determinant(this);
 	}
 
+	public Matrix transpose()
+	{
+		double[][] trans = new double[this.columns()][this.rows()];
+
+		for (int i = 0; i < trans.length; i++)
+		{
+			trans[i] = this.column(i);
+		}
+
+		return new Matrix(trans);
+	}
+
 	/**********************************************
 					Recursive Helpers
 	**********************************************/
