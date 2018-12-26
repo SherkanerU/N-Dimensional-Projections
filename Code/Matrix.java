@@ -3,6 +3,7 @@ public class Matrix
 {
 	private double[][] matrix;
 
+	//initialize a matrix from a two dimensional array
 	public Matrix(double[][] rows)
 	{
 		validateDimensions(rows);
@@ -39,6 +40,8 @@ public class Matrix
 	/***********************************************
 					  Arithmetic
 	***********************************************/
+	//does addition row wise!
+	//uses one of the array addition helpers
 	public Matrix add (Matrix other)
 	{
 		validateDimensionsAddition(this, other);
@@ -53,6 +56,8 @@ public class Matrix
 		return new Matrix(sum);
 	}
 
+	//multiplies a matrix by a constant
+	//uses the constant array mul helper
 	public Matrix multiply (double num)
 	{
 		double[][] mul = new double[this.rows()][this.columns()];
@@ -65,6 +70,9 @@ public class Matrix
 		return new Matrix(mul);
 	}
 
+	//multiplies two matricies together
+	//uses inner product helper by skimming rows of this and multiplying 
+	//them by columns of other to calculate the individual index values
 	public Matrix multiply (Matrix other)
 	{
 		validateDimensionsMul(this, other);
@@ -86,11 +94,14 @@ public class Matrix
 		return new Matrix(product);
 	}
 
+	//uses the recursive helper immedietly!
 	public double determinant()
 	{
 		return determinant(this);
 	}
 
+	//swaps rows with columns
+	//uses get column helper
 	public Matrix transpose()
 	{
 		double[][] trans = new double[this.columns()][this.rows()];
@@ -103,6 +114,9 @@ public class Matrix
 		return new Matrix(trans);
 	}
 
+	//calculates the matrix of minors by iterating over each value 
+	//and taking the determinant of the matrix with the current
+	//row and column taken away
 	public Matrix minors()
 	{
 		double[][] minors = new double[this.rows()][this.columns()];
@@ -118,6 +132,8 @@ public class Matrix
 		return new Matrix(minors);
 	}
 
+	//calcs adjoint matrix by generating the cofactor matrix from the minors matrix
+	//then transposes and returns
 	public Matrix adjoint()
 	{
 		Matrix minors = this.minors();
@@ -126,6 +142,7 @@ public class Matrix
 		return minors;
 	}
 
+	//uses adjoint and determinant to invert the matrix
 	public Matrix inverse()
 	{
 		double det = this.determinant();
@@ -142,6 +159,9 @@ public class Matrix
 	**********************************************/
 
 	//works using expansion across the top row!
+	//is recursive, has base case of 2 and 1
+	//recursive case calculates the matrix removed from 
+	//this row and column and takes its determinant
 	private double determinant(Matrix m)
 	{
 		validateSqure(m);
@@ -239,7 +259,8 @@ public class Matrix
 
 		return new Matrix(result);
 	}
- 
+
+ 	//overlays the proper negative signs
  	private Matrix cofactor(Matrix m)
  	{
  		double[][] factor = new double[m.rows()][m.columns()];
