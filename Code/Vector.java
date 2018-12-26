@@ -2,15 +2,31 @@
 
 public class Vector extends Point
 {
+	/*******************************************
+					Constructors
+	********************************************/
+
 	public Vector(double[] c)
 	{
 		super(c);
 	}
 
+	/********************************************
+				     Mathematics
+	*********************************************/
+
 	//calculate dot/inner product of two vectors
 	public double innerProduct(Vector other)
 	{
 		return arrayInnerProd(this.cords(), other.cords());
+	}
+
+	public Vector scalarMul(double n)
+	{
+		double[] product;
+		product = mulArray(this.cords(), n);
+
+		return new Vector(product);
 	}
 
 	//calculates length of the vector
@@ -26,6 +42,20 @@ public class Vector extends Point
 		normArray = mulArray(this.cords(), 1/this.norm());
 
 		return new Vector(normArray);
+	}
+
+	//returns the composition or scalar projection of
+	//Vector other onto this
+	public double comp(Vector other)
+	{
+		return this.innerProduct(other)/this.norm();
+	}
+
+	//returns the projection of Vector other 
+	//onto this vector
+	public Vector projection(Vector other)
+	{
+		return (this.normalize()).scalarMul(this.comp(other));
 	}
 
 	/*********************************************
