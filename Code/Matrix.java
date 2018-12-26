@@ -103,6 +103,40 @@ public class Matrix
 		return new Matrix(trans);
 	}
 
+	public Matrix minors()
+	{
+		double[][] minors = new double[this.rows()][this.columns()];
+
+		for (int i = 0; i < this.rows(); i++)
+		{
+			for(int j = 0; j < this.columns(); j++)
+			{
+				minors[i][j] = determinant(minor(this, i, j));
+			}
+		}
+
+		return new Matrix(minors);
+	}
+
+	public Matrix adjoint()
+	{
+		Matrix minors = this.minors();
+		minors = minors.cofactor();
+		minors = minors.transpose();
+		return minors;
+	}
+
+	public Matrix inverse()
+	{
+		double det = this.determinant();
+		if (det == 0)
+		{
+			throw new IllegalArgumentException("determinant is 0, no inverse");
+		}
+
+		return (this.adjoint()).multiply(1/det);
+	}
+
 	/**********************************************
 					Recursive Helpers
 	**********************************************/
@@ -111,7 +145,11 @@ public class Matrix
 	private double determinant(Matrix m)
 	{
 		validateSqure(m);
-		if (m.rows() == 2)
+		if (m.rows() == 1)
+		{
+			return m.matrix()[0][0];
+		}
+		else if (m.rows() == 2)
 		{
 			double[][] mat = m.matrix();
 			return mat[0][0]*mat[1][1] - mat[0][1]*mat[1][0];
@@ -202,6 +240,25 @@ public class Matrix
 		return new Matrix(result);
 	}
  
+ 	private Matrix cofactor(Matrix m)
+ 	{
+ 		double[][] factor = new double[m.rows()][m.columns()];
+
+ 		for (int i = 0; i < m.rows(); i++)
+ 		{
+ 			for (int j = 0; j < m.columns(); j++)
+ 			{
+ 				factor[i][j] = Math.pow(-1, i+j) * m.matrix()[i][j];
+ 			}
+ 		}
+
+ 		return new Matrix(factor);
+ 	}
+
+ 	public Matrix cofactor()
+ 	{
+ 		return cofactor(this);
+ 	}
 
 	/***********************************************
 						Getters
