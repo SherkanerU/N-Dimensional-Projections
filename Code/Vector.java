@@ -7,9 +7,25 @@ public class Vector extends Point
 		super(c);
 	}
 
+	//calculate dot/inner product of two vectors
 	public double innerProduct(Vector other)
 	{
 		return arrayInnerProd(this.cords(), other.cords());
+	}
+
+	//calculates length of the vector
+	public double norm()
+	{
+		return Math.sqrt(this.innerProduct(this));
+	}
+
+	//returns unit vector of this vector
+	public Vector normalize()
+	{
+		double[] normArray;
+		normArray = mulArray(this.cords(), 1/this.norm());
+
+		return new Vector(normArray);
 	}
 
 	/*********************************************
@@ -29,6 +45,18 @@ public class Vector extends Point
 		}
 
 		return sum;
+	}
+
+	private double[] mulArray(double[] a, double n)
+	{
+		double[] ret = new double[a.length];
+
+		for (int i = 0; i < a.length; i++)
+		{
+			ret[i] = n*a[i];
+		}
+
+		return ret;
 	}
 
 
