@@ -86,7 +86,16 @@ public class Matrix
 		return new Matrix(product);
 	}
 
+	/**********************************************
+					Recursive Helpers
+	**********************************************/
 
+	//works using expansion across the top row!
+	private double determinant(Matrix m)
+	{
+		validateSqure(m);
+		// finish this lol
+	}
 
 	/***********************************************
 				   Arithmetic Helpers
@@ -187,6 +196,13 @@ public class Matrix
 	/***********************************************
 				Validation and Helpers
 	************************************************/
+	private void validateSqure(Matrix m)
+	{
+		if (m.rows() != m.columns())
+		{
+			throw new IllegalArgumentException("non square matrix");
+		}
+	}
 
 	//ensure that the matrix has uniform columns
 	private void validateDimensions(double[][] m)
