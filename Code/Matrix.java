@@ -125,6 +125,37 @@ public class Matrix
 
 		return sum;
 	}
+	//calculates the matrix resultant from removing row j and column i
+	public Matrix removeRowCol(Matrix m, int j, int i)
+	{
+		if (m.rows() <= 1 || this.columns() <= 1)
+		{
+			throw new IllegalArgumentException("cannot remove from a matrix with either rows = 1 or columns = 1");
+		}
+
+		double[][] result = new double[m.rows() - 1][m.columns() -1];
+ 
+ 		int rowCount = 0;
+ 		int columnCount = 0;
+		for (int p = 0; p < m.rows(); p++)
+		{
+			if (p != j)
+			{
+				columnCount = 0;
+				for (int q = 0; q < m.columns(); q++)
+				{
+					if (q != i)
+					{
+						result[rowCount][columnCount] = m.matrix()[p][q];
+						columnCount++;
+					}
+				}
+				rowCount++;
+			}
+		}
+
+		return new Matrix(result);
+	}
  
 
 	/***********************************************
