@@ -58,6 +58,18 @@ public class Vector extends Point
 		return (this.normalize()).scalarMul(this.comp(other));
 	}
 
+	public Vector add(Vector other)
+	{
+		double[] sum = addArrays(this.cords(), other.cords());
+
+		return new Vector(sum);
+	}
+
+	public Vector subtract(Vector other)
+	{
+		return this.add(other.scalarMul(-1));
+	}
+
 	/*********************************************
 					   Helpers
 	*********************************************/
@@ -85,6 +97,19 @@ public class Vector extends Point
 
 		return ret;
 	}
+
+	private double[] addArrays(double[] a, double[] b)
+	{
+		validateLengths(a,b);
+
+		double[] sum = new double[a.length];
+
+		for (int i = 0l i < a.length; i++)
+		{
+			sum[i] = a[i] + b[i];
+		}
+	}
+
 
 
 
