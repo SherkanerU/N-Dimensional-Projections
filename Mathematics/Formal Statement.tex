@@ -73,7 +73,7 @@ $$ = t_1(\mathbf{g} - \mathbf{a})\cdot \mathbf{u}_1 + t_2(\mathbf{g} - \mathbf{a
 $$ \Rightarrow (\mathbf{g} - \mathbf{a})\cdot\mathbf{v}_i = 0 		$$
 \end{proof}
 $\newline$
-{\bf Proposition 3} The given definition is equivalent to saying that the orthogonal projection of $\mathbf{a}$ onto $S$ (denoted $\mathbf{g}$) then $(\mathbf{g}-\mathbf{a})$ is orthogonal to every vector in $S$.
+{\bf Proposition 3: } The given definition is equivalent to saying that the orthogonal projection of $\mathbf{a}$ onto $S$ (denoted $\mathbf{g}$) then $(\mathbf{g}-\mathbf{a})$ is orthogonal to every vector in $S$.
 \begin{proof}
 ($\Rightarrow$) Fixing an arbitrary $\mathbf{v} \in S$ we know that $\mathbf{v}$ can be written as $\sum_{i=1}^k a_i\mathbf{u}_i$ for each $\mathbf{u}_i$ being a basis vector of $S$.  Therefore:
 $$ (\mathbf{g} - \mathbf{a})\cdot \mathbf{v} =(\mathbf{g} - \mathbf{a})\cdot \sum_{i=1}^k a_i\mathbf{u}_i = \sum_{i=1}^k (\mathbf{g} - \mathbf{a})\cdot a_i\mathbf{u}_i = 0 $$
@@ -83,7 +83,14 @@ $\newline$
 Given the results of propositions 1 and 2, orthogonal projections are independant of choice of basis vectors and are unique.  Therefore, the following notation will be introduced for $\mathbf{a}$ being $\mathbf{g}$'s orthogonal projection onto $S$:
 $$ P_S(\mathbf{g}) = \mathbf{a} $$
 $\newline$
-{\bf Theorem 1}  If a point $\mathbf{a} \in S$ minimizes the distance between $\mathbf{g}$ and the space $S$ then $P_S(\mathbf{g}) = \mathbf{a}$
+{\bf Proposition 4: } If a point $\mathbf{g}$ is included in $S$ then its projection onto $S$ is itself.
+\begin{proof} The proof is trivial since if a point exists which satisfies the first definition then the point is unique.  If we consider $\mathbf{g}$ itself then:
+$$ (\mathbf{g} - \mathbf{g}) = \mathbf{0} $$
+$$ \Rightarrow \forall i \leq k \ \ \mathbf{u}_i \cdot (\mathbf{g} - \mathbf{g}) = \mathbf{0} $$
+And $\mathbf{g}$ is its own projection.  This also works in reverse in a sense because, if a projection of a point is calculated to be in exactly the same location as the point itself then the point must have been in $S$ in the first place!  I use this result to determine whether certain points are included in a subspace in the program that accompanies this.
+$\newline$
+\end{proof}
+\noindent {\bf Theorem 1}  If a point $\mathbf{a} \in S$ minimizes the distance between $\mathbf{g}$ and the space $S$ then $P_S(\mathbf{g}) = \mathbf{a}$
 \begin{proof} We can represent vectors in $S$ as parameterized in $k$ variables where $k$ is the dimension of the basis of $S$.  Therefore distances between $S$ and $\mathbf{g}$ can be written as:
 $$ d(t_1,t_2,\dots, t_k) = ||t_1\mathbf{u}_{1} + t_2\mathbf{u}_{2} + \dots + t_k\mathbf{u}_{k} - \mathbf{g}|| $$
 Since $d$ is always positive it suffices to consider $d^2$ when talking about local extrema.  Which can be written as:
