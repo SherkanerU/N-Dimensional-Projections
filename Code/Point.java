@@ -2,6 +2,10 @@ public class Point
 {
 	private final int MAX_DIMENSION = 1000;								//all is restrained to [0, MAX_DIMENSION] 
 
+	//if the component wise difference of two points is less than this
+	//then they are equal
+	private final double EQUALITY_TOL = .000001;
+
 	private double[] cords;
 
 	//intialize a point object with given cordinate array
@@ -65,7 +69,7 @@ public class Point
 		
 		for (int i = 0; i < cords.length; i++)
 		{
-			if (this.getCord(i) != p.getCord(i))
+			if (Math.abs(this.getCord(i) - p.getCord(i)) > EQUALITY_TOL)
 			{
 				return -1;												//an unequal coordinate was found
 			}
@@ -74,8 +78,10 @@ public class Point
 		return 0;														//returns without finding an unequal coordinate
 	}
 
-	public boolean equals(Point p) {return this.compareTo(p) == 0;}		//wrapper for the commpareTo method in the case of equals
-
+	public boolean equals(Point p) 
+	{									
+		return (this.compareTo(p) == 0);
+	}		
 	public double coordinateSum()										//returns the sum of the coordinates as a double
 	{	
 		double sum = 0;
@@ -104,6 +110,14 @@ public class Point
 			{
 				throw new IllegalArgumentException("point found out of max dimension bounds");
 			}
+		}
+	}
+
+	private void verifyLengths(double[] a, double[] b)
+	{
+		if (a.length != b.length)
+		{
+			throw new IllegalArgumentException("cannot multiply unlike length arrays");
 		}
 	}
 }
