@@ -17,6 +17,19 @@ public class Point
 		cords = init;
 	}
 
+	//make a point of length len filled wit 
+	//only entries of num
+	public Point (double num, int len)
+	{
+		double[] c = new double[len];
+		for (int i = 0; i < len; i++)
+		{
+			c[i] = num;
+		}
+
+		cords = c;
+	}
+
 	//returns the dimensions of the point, 
 	//ie how many coordinates
 	public int getDimension()

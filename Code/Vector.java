@@ -2,13 +2,20 @@
 
 public class Vector extends Point
 {
+	//if the dot product is less than this call it 0 
+	private final double DOT_TOL = .00000000001;
+
 	/*******************************************
 					Constructors
 	********************************************/
-
 	public Vector(double[] c)
 	{
 		super(c);
+	}
+
+	public Vector(double num, int len)
+	{
+		super(num,len);
 	}
 
 	/********************************************
@@ -18,7 +25,16 @@ public class Vector extends Point
 	//calculate dot/inner product of two vectors
 	public double innerProduct(Vector other)
 	{
-		return arrayInnerProd(this.cords(), other.cords());
+		double ret = arrayInnerProd(this.cords(), other.cords());
+
+		if (Math.abs(ret) <= DOT_TOL)
+		{
+			return 0;
+		}
+		else
+		{
+			return ret;
+		}
 	}
 
 	public Vector scalarMul(double n)
@@ -86,6 +102,7 @@ public class Vector extends Point
 		return sum;
 	}
 
+
 	private double[] mulArray(double[] a, double n)
 	{
 		double[] ret = new double[a.length];
@@ -104,10 +121,12 @@ public class Vector extends Point
 
 		double[] sum = new double[a.length];
 
-		for (int i = 0l i < a.length; i++)
+		for (int i = 0; i < a.length; i++)
 		{
 			sum[i] = a[i] + b[i];
 		}
+
+		return sum;
 	}
 
 
