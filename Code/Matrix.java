@@ -389,7 +389,7 @@ public class Matrix
 
 	private void validateDimensionsMul(Matrix a, Matrix b)
 	{
-		if (a.columns() != b.rows() || a.rows() != b.columns())
+		if (a.columns() != b.rows() )
 		{
 			throw new IllegalArgumentException("invalid dimensions for multiplication");
 		}

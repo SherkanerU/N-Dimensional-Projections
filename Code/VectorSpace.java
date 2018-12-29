@@ -86,11 +86,9 @@ public class VectorSpace
 			for (int j = 0; j < i; j++)
 			{
 				accum = accum.add(ortho[j].projection(current));
-				System.out.println( "accum[j]: " + accum);
 			}
 
 			ortho[i] = current.subtract(accum);
-			System.out.println( "ortho[i]: " + ortho[i]);
 		}
 
 		return ortho;
@@ -104,18 +102,98 @@ public class VectorSpace
 		return orthoNormal;
 	}
 
+	public Matrix projectionMatrix(Vector[] vectors)
+	{
+		validateIndependance(vectors);
+
+		double[][] matrix = new double[vectors.length][vectors.length];
+
+		for (int i = 0; i < vectors.length; i++)
+		{
+			Vector current = vectors[i];
+
+			for (int j = 0; j < vectors.length; j++)
+			{
+				matrix[i][j] = current.innerProduct(vectors[j]); 
+			}
+		}
+
+		return new Matrix(matrix);
+	}
+
+	//calculates the coordinates of a point's projection relative 
+	//to a the current basis vectors!
+	public double[] projCords(Vector a)
+	{
+		checkPoint(a);
+
+		//generate the appropriate column vector
+		double[] column = new double[this.dimension()];
+		for(int i = 0; i < this.dimension(); i++)
+		{
+			column[i] = basis[i].innerProduct(a);
+		}
+		Matrix columnMat = new Matrix(column, "column");
+
+		Matrix invProj = this.projectionMatrix();
+		invProj = invProj.inverse();
+
+		Matrix result = invProj.multiply(columnMat);
+
+		return result.column(0);
+	}
+
+	//gives the vector given by the array of coordinates
+	public Vector vectorCords(double[] coordinates)
+	{
+		if (coordinates.length != this.dimension())
+		{
+			throw new IllegalArgumentException("passed illegal coordinate array");
+		}
+
+		Vector result = new Vector ((double) 0, dimensionOfAmbientSpace());
+
+		for (int i = 0; i < coordinates.length; i++)
+		{
+			result = result.add((basis[i].scalarMul(coordinates[i])));
+		}
+
+		return result;
+	}
+
+	public boolean isMemberofSpace(Vector a)
+	{
+		//if it is a member of the space then the projection
+		//and the original vector are the same.
+		Vector projection = vectorCords(projCords(a));
+
+		return projection.equals(a);
+	}
 
 	/***********************************************
 						Getters
 	************************************************/
 	public Vector[] basis(){return basis;}
 
+	public Matrix projectionMatrix()
+	{
+		return projectionMatrix(this.basis());
+	}
+
+	//the dimension of the space
+	public int dimensionOfAmbientSpace(){return basis[0].getDimension();}
+
+	//dimension of the subspace defined by basis
+	public int dimension(){return basis.length;}
+
 	/************************************************
 						Setters
 	************************************************/
-	public boolean setBasis()
+	public void setBasis(Vector[] vectors)
 	{
-		return false;
+		validateIndependance(vectors);
+
+		basis = vectors;
 	}
 
 	/************************************************
@@ -139,6 +217,14 @@ public class VectorSpace
 		if (!checkIndependance(vectors))
 		{
 			throw new IllegalArgumentException("passed dependant vector system");
+		}
+	}
+
+	private void checkPoint(Point p)
+	{
+		if (p.getDimension() != this.dimensionOfAmbientSpace())
+		{
+			throw new IllegalArgumentException("point not of same dimension as ambient space");
 		}
 	}
 
