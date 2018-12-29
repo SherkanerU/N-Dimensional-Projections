@@ -5,6 +5,7 @@ public class Vector extends Point
 	//if the dot product is less than this call it 0 
 	private final double DOT_TOL = .00000000001;
 
+
 	/*******************************************
 					Constructors
 	********************************************/
@@ -128,8 +129,6 @@ public class Vector extends Point
 
 		return sum;
 	}
-
-
 
 
 	/*********************************************

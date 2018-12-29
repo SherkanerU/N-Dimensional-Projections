@@ -170,6 +170,21 @@ public class VectorSpace
 		return projection.equals(a);
 	}
 
+	//gives a vector which is the dimension of the subspace passed
+	//and is the projection of the vector passed!
+	//will perforrm gram shmidt first!
+	public Vector getRelativeCoordinates(Vector[] b, Vector p)
+	{
+		validateIndependance(b);
+
+		Vector[] bas = GramShmidt(b);
+		VectorSpace space = new VectorSpace(bas);
+
+		double[] ret = projCords(p);
+
+		return new Vector(ret);
+	}
+
 	/***********************************************
 						Getters
 	************************************************/
