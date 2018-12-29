@@ -97,6 +97,19 @@ public class PointGraph
 		adjacentTo[v].add(w);
 		adjacentTo[w].add(v);
 	}
+	public void setVertex(int i, Point p)							//resets the point given
+	{
+		validateVertex(i);
+
+		vertices[i] = p;
+
+		validateDimensions(vertices);
+	}
+	public void setVertex(Point orig, Point replace)				//replaces one point with another
+	{
+		int index = findPoint(orig);
+		setVertex(index, replace);
+	}
 
 
 	/**********************************************
@@ -112,9 +125,27 @@ public class PointGraph
 		validateDimensions(vertices);
 		return vertices[0].getDimension();
 	}
+	public int indexOf(Point p)
+	{
+		return findPoint(p);
+	}
 
 	public Iterable<Integer> adjTo(int v){return adjacentTo[v];}	//get the points connected to v
 
+	/************************************************
+					     Helpers
+	************************************************/
+	private int findPoint(Point p)									//returns the point the index associated with this point, -1 if not found
+	{
+		for (int  i = 0; i < vertices.length; i++)
+		{
+			if (vertices[i].equals(p))
+			{
+				return i;
+			}
+		}
+		return -1;
+	}
 
 	/*************************************************
 			 Validation and Checker Methods

@@ -2,6 +2,8 @@
 public class VectorSpace
 {
 	private Vector[] basis;
+	private Matrix PM;
+	private Matrix invPM;
 
 	//decide how far away from 0 we want the determinant of a 
 	//system to be!
@@ -22,6 +24,8 @@ public class VectorSpace
 		}
 
 		basis = b;
+		PM = projectionMatrix(basis);
+		invPM = PM.inverse();
 	}
 
 	/*************************************************
@@ -30,14 +34,33 @@ public class VectorSpace
 	public void normalizeBasis()
 	{
 		basis = normalizeSet(this.basis());
+		PM = projectionMatrix(basis);
+		invPM = PM.inverse();
 	}
 	public void orthogonalizeBasis()
 	{
 		basis = orthogonalizeSet(this.basis());
+		PM = projectionMatrix(basis);
+		invPM = PM.inverse();
 	}
 	public void GramShmidtBasis()
 	{
 		basis = GramShmidt(this.basis());
+		PM = projectionMatrix(basis);
+		invPM = PM.inverse();
+	}
+
+	//returns a vector which is of dimension of the 
+	//cardinality of the basis of this space, it is the
+	//coordinates with respect to the orthogonalized set
+	public Vector getRelCords(Vector p)
+	{
+		return this.getRelativeCoordinates(this.basis(), p);
+	}
+
+	public Vector[] getRelCords(Vector[] p)
+	{
+		return this.getRelativeCoordinatesArr(this.basis(), p);
 	}
 
 
@@ -135,8 +158,8 @@ public class VectorSpace
 		}
 		Matrix columnMat = new Matrix(column, "column");
 
-		Matrix invProj = this.projectionMatrix();
-		invProj = invProj.inverse();
+		//Matrix invProj = this.projectionMatrix();
+		Matrix invProj = this.inverseProjectionMatrix();
 
 		Matrix result = invProj.multiply(columnMat);
 
@@ -180,9 +203,32 @@ public class VectorSpace
 		Vector[] bas = GramShmidt(b);
 		VectorSpace space = new VectorSpace(bas);
 
-		double[] ret = projCords(p);
+		double[] ret = space.projCords(p);
 
 		return new Vector(ret);
+	}
+
+	public Vector[] getRelativeCoordinatesArr(Vector[] b, Vector[] points)
+	{
+		validateIndependance(b);
+		validateDimensions(points);
+
+		if (points[0].getDimension() != b[0].getDimension())
+		{
+			throw new IllegalArgumentException("point not of the same dimension of basis vectors");
+		}
+
+		Vector[] bas = GramShmidt(b);
+		VectorSpace space = new VectorSpace(bas);
+
+		Vector[] ret = new Vector[points.length];
+
+		for(int i = 0; i < points.length; i++)
+		{
+			ret[i] = new Vector(space.projCords(points[i]));
+		}
+
+		return ret;
 	}
 
 	/***********************************************
@@ -192,7 +238,12 @@ public class VectorSpace
 
 	public Matrix projectionMatrix()
 	{
-		return projectionMatrix(this.basis());
+		return PM;
+	}
+
+	public Matrix inverseProjectionMatrix()
+	{
+		return invPM;
 	}
 
 	//the dimension of the space
@@ -200,6 +251,42 @@ public class VectorSpace
 
 	//dimension of the subspace defined by basis
 	public int dimension(){return basis.length;}
+
+	//makes a new vector space of dimension one less that the
+	//current vector space, remove simpy removes one of the basis 
+	//vectors, mix will combine the last two to make one 
+	//one new with a different "tilt"
+	public VectorSpace reducedDimesion(String type)
+	{
+		if (type.equals("remove"))
+		{
+			Vector[] newBasis = new Vector[this.basis().length - 1];
+
+			for (int i = 0; i < newBasis; i++)
+			{
+				newBasis[i] = this.basis()[i];
+			}
+
+			return new VectorSpace(newBasis);
+		}
+		else if (type.equals("mix"))
+		{
+			Vector[] newBasis = new Vector[this.basis().length - 1];
+
+			for (int i = 0; i < newBasis - 1; i++)
+			{
+				newBasis[i] = this.basis()[i];
+			}
+
+			newBasis[newBasis.length - 1] = this.basis()[newBasis.length - 1].add(this.basis()[newBasis.length]);
+
+			return new VectorSpace(newBasis)
+		}
+		else
+		{
+			throw new IllegalArgumentException("need to specify either remove or mix!");
+		}
+	}
 
 	/************************************************
 						Setters
