@@ -262,7 +262,7 @@ public class VectorSpace
 		{
 			Vector[] newBasis = new Vector[this.basis().length - 1];
 
-			for (int i = 0; i < newBasis; i++)
+			for (int i = 0; i < newBasis.length; i++)
 			{
 				newBasis[i] = this.basis()[i];
 			}
@@ -273,14 +273,14 @@ public class VectorSpace
 		{
 			Vector[] newBasis = new Vector[this.basis().length - 1];
 
-			for (int i = 0; i < newBasis - 1; i++)
+			for (int i = 0; i < newBasis.length - 1; i++)
 			{
 				newBasis[i] = this.basis()[i];
 			}
 
 			newBasis[newBasis.length - 1] = this.basis()[newBasis.length - 1].add(this.basis()[newBasis.length]);
 
-			return new VectorSpace(newBasis)
+			return new VectorSpace(newBasis);
 		}
 		else
 		{

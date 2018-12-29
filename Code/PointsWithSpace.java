@@ -11,7 +11,7 @@ public class PointsWithSpace
 
 	public PointsWithSpace(PointGraph p, VectorSpace s)
 	{
-		if (p.vertices()[0].getDimension() != s.basis().getDimension())
+		if (p.vertices()[0].getDimension() != s.basis()[0].getDimension())
 		{
 			throw new IllegalArgumentException("point collection and vector space not of same ambient dimension");
 		}
@@ -42,9 +42,9 @@ public class PointsWithSpace
 
 		//Point[] projections = new Point[toProject.length];
 
-		for(int i = 0; i < projections.length; i++)
+		for(int i = 0; i < toProject.length; i++)
 		{
-			double[] projCords = space.projCords(toProject[i])
+			double[] projCords = space.projCords(toProject[i]);
 			Point point = (Point) space.vectorCords(projCords);
 
 			points.setVertex(i, point);
@@ -55,7 +55,7 @@ public class PointsWithSpace
 	//type specified
 	public void reduceSpace(String type)
 	{
-		space = space.reducedDimension(type);
+		space = space.reducedDimesion(type);
 	}
 
 	/*****************************************************
@@ -64,7 +64,7 @@ public class PointsWithSpace
 	public int dimension()
 	{
 		int dim = space.dimensionOfAmbientSpace();
-		if (dim != points.vertices()[].getDimension())
+		if (dim != points.vertices()[0].getDimension() )
 		{
 			throw new IllegalStateException("space and point graph not of same ambient dimension");
 		}
