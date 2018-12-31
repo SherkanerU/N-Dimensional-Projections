@@ -58,6 +58,33 @@ public class PointsWithSpace
 		space = space.reducedDimesion(type);
 	}
 
+	//returns a graph of the points with respect to the basis
+	//of the space included in this class
+	//the point graph out to be of dimension equal to
+	//the subspace defined by space
+	public PointGraph withRespectToBasis()
+	{
+		Point[] pointArr = points.vertices();
+
+		Vector[] convertToVector = new Vector[pointArr.length];
+
+		for (int i = 0; i < pointArr.length; i++)
+		{
+			convertToVector[i] = new Vector(pointArr[i].cords());
+		}
+
+		Point[] convertedPoints = (Point[]) space.getRelCords(convertToVector);
+
+		PointGraph returnGraph = new PointGraph(points);
+
+		for(int i = 0; i < points.vertices().length; i++)
+		{
+			returnGraph.setVertex(i, convertedPoints[i]);
+		}
+
+		return returnGraph;
+	}
+
 	/*****************************************************
 							Getters
 	*****************************************************/
