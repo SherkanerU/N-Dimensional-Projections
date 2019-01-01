@@ -10,6 +10,8 @@ display class in order to plot the points and edges.
 @SuppressWarnings("unchecked")
 public class PointGraph											
 {
+	private final double EQUAL_TOL = .00001;
+
 	private final int V; 											//number of vertices
 	private int E;													//number of edges
 	private final int PRIME = 997;									//prime around 1000 for hashing purposes
@@ -52,7 +54,7 @@ public class PointGraph
 
 	public PointGraph (PointGraph g)								//construct a graph using another graph
 	{
-		validatePoints(g.vertices());								//ensure a proper graph is passed
+		//validatePoints(g.vertices());								//ensure a proper graph is passed
 
 		this.V = g.V();												//set up vertex and edge trackers
 		this.E = g.E();
@@ -84,6 +86,56 @@ public class PointGraph
 		}
 	}
 
+	public PointGraph(String type, int dim, int scale)
+	{
+		if (!type.equals("square"))
+		{
+			throw new IllegalArgumentException("say square");
+		}
+
+		ArrayList<Vector> squareList = new ArrayList<Vector>();
+
+		genAllCombs(squareList, dim, dim);
+
+		Vector[] square = new Vector[(int) Math.pow(2,dim)];
+
+		for (int i = 0; i < squareList.size(); i ++)
+		{
+			square[i] = squareList.get(i);
+		}
+
+		for (Vector v: square)
+		{
+			System.out.println(v);
+		}
+
+		V = (int) Math.pow(2, dim);
+		vertices = new Point[(int) Math.pow(2,dim)];
+
+		for (int i = 0; i < V ; i++)
+		{
+			square[i] = square[i].scalarMul(scale);
+			vertices[i] = (Point) square[i];
+		}
+
+		adjacentTo = (ArrayList<Integer>[]) new ArrayList[vertices.length];
+		for (int i = 0; i < V; i ++)
+		{
+			adjacentTo[i] = new ArrayList<Integer>();
+		}
+
+		for (int i = 0; i < V; i++)
+		{
+			for (int j = i+1; j < V; j++)
+			{
+				if (Math.abs(square[i].distTo(square[j]) - scale) < EQUAL_TOL )
+				{
+					addEdge(i,j);
+				}
+			}
+		}
+	}
+
 	/*********************************************
 						Setters
 	**********************************************/
@@ -103,7 +155,7 @@ public class PointGraph
 
 		vertices[i] = p;
 
-		validateDimensions(vertices);
+		//validateDimensions(vertices);
 	}
 	public void setVertex(Point orig, Point replace)				//replaces one point with another
 	{
@@ -135,6 +187,28 @@ public class PointGraph
 	/************************************************
 					     Helpers
 	************************************************/
+	private void genAllCombs(ArrayList<Vector> list, int len, int dim)
+	{
+		genAllCombs(list, "", len, dim);
+	}
+
+	private void genAllCombs(ArrayList<Vector> list, String currentString, int to, int dim)
+	{
+		if (to == 0)
+		{
+			double[] arr = new double[dim];
+			for (int i = 0; i < dim; i++)
+			{
+				arr[i] = Character.getNumericValue(currentString.charAt(i));	
+			}
+			list.add(new Vector(arr));
+			return;
+		}
+		genAllCombs(list, currentString + "0", to - 1, dim);
+		genAllCombs(list, currentString + "1", to - 1, dim);
+	}
+
+
 	private int findPoint(Point p)									//returns the point the index associated with this point, -1 if not found
 	{
 		for (int  i = 0; i < vertices.length; i++)

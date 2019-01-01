@@ -87,6 +87,13 @@ public class Vector extends Point
 		return this.add(other.scalarMul(-1));
 	}
 
+	public double distTo(Vector other)
+	{
+		Vector sub = this.subtract(other);
+
+		return sub.norm();
+	}
+
 	/*********************************************
 					   Helpers
 	*********************************************/
