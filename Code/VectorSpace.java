@@ -282,6 +282,17 @@ public class VectorSpace
 
 			return new VectorSpace(newBasis);
 		}
+		else if (type.equals("total mix"))
+		{
+			Vector[] newBasis = new Vector[this.basis().length - 1];
+
+			for (int i = 0; i < newBasis.length; i++)
+			{
+				newBasis[i] = this.basis()[i].add(this.basis()[newBasis.length]);
+			}
+
+			return new VectorSpace(newBasis);
+		}
 		else
 		{
 			throw new IllegalArgumentException("need to specify either remove or mix!");
