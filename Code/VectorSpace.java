@@ -1,3 +1,5 @@
+import java.util.Random;
+
 
 public class VectorSpace
 {
@@ -12,6 +14,22 @@ public class VectorSpace
 	/******************************************
 					Constructors
 	*******************************************/
+	//makes a vector space with the standard basis of 
+	//dimension dim
+	public VectorSpace(int dim)
+	{
+		double[][] candidates = new double[dim][dim];
+		Vector[] b = new Vector[dim];
+
+		for (int i = 0 ; i < dim; i++)
+		{
+			candidates[i][i] = 1;
+			b[i] = new Vector(candidates[i]);
+		}
+
+		basis = b;
+	}
+
 	public VectorSpace(Vector[] b)
 	{
 		if (!checkIndependance (b))
@@ -229,6 +247,23 @@ public class VectorSpace
 		}
 
 		return ret;
+	}
+
+	public void mixBasis()
+	{
+		Random rand = new Random();
+
+		int one = rand.nextInt(this.dimension());
+		int two = rand.nextInt(this.dimension());
+
+		while(one == two)
+		{
+			two = rand.nextInt(this.dimension());
+		}
+
+		basis[two] = basis[one].add(basis[two]);
+
+		validateIndependance(this.basis());
 	}
 
 	/***********************************************

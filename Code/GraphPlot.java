@@ -1,12 +1,25 @@
 import java.awt.Canvas;
 import java.awt.Graphics;
 import javax.swing.JFrame;
+import java.awt.*;
+import java.io.*;
+import javax.swing.*;
+import java.awt.event.*;
+import javax.imageio.ImageIO;
 
-public class GraphPlot extends Canvas
+public class GraphPlot extends JPanel 
 {
 	private PointGraph graph;
 	private canvasPoint[] points;
 	private final int CIRCLE_SIZE = 10;
+
+	private boolean dynamic = false;									//to handle mouse events
+
+	private Vector[] originalBasis;
+
+	PointGraph originalGraph;
+
+
 
 	/**********************************************
 					Constructors
@@ -19,6 +32,50 @@ public class GraphPlot extends Canvas
 		}
 
 		graph = g;
+
+		dynamic = true;
+	}
+
+	public GraphPlot(PointGraph g, VectorSpace space, String type)
+	{
+		originalBasis = space.basis();
+		originalGraph = new PointGraph(g);
+
+		int dim = space.dimension();
+
+		PointsWithSpace pws = new PointsWithSpace(g,space);
+
+		for (int i = dim; i > 2; i --)
+		{
+			if (i%2 == 0)
+			{
+				pws.reduceSpace(type);
+			}
+			else
+			{
+				pws.reduceSpace("mix");
+			}
+			pws.projectGraph();
+		}
+
+		graph = pws.withRespectToBasis();
+
+		dynamic = true;
+
+		/*
+		addMouseListener(new MouseListener(){
+                    public void mouseClicked(MouseEvent e){
+                        System.out.println("Mouse was clicked");
+                        //repaint();
+                    }
+
+                    public void mouseEntered(MouseEvent arg0) {}
+                    public void mouseExited(MouseEvent arg0) {}
+                    public void mousePressed(MouseEvent arg0) {}
+                    public void mouseReleased(MouseEvent arg0) {}
+        });
+        */
+
 	}
 
 	/***********************************************
@@ -26,13 +83,51 @@ public class GraphPlot extends Canvas
 	***********************************************/
 	public void paint(Graphics g)
 	{
-		points = verticesToCanvas(graph);
-		plotPoints(g);
-		plotEdges(g);
+		if (dynamic)
+		{
+			points = verticesToCanvas(graph);
+			plotPoints(g);
+			plotEdges(g);
+			dynamic = false;
+		}
+		else
+		{
+			super.paintComponent(g);
+			update(g);
+		}
 	}
 
 	public void update(Graphics g)
 	{
+		System.out.println("hell0");
+
+
+		VectorSpace space = new VectorSpace(originalBasis);
+
+		space.mixBasis();
+		originalBasis = space.basis();
+
+		int dim = space.dimension();
+
+		PointGraph gr = new PointGraph(originalGraph);
+
+		PointsWithSpace pws = new PointsWithSpace(gr,space);
+
+		for (int i = dim; i > 2; i --)
+		{
+			if (i%2 == 0)
+			{
+				pws.reduceSpace("total mix");
+			}
+			else
+			{
+				pws.reduceSpace("mix");
+			}
+			pws.projectGraph();
+		}
+
+		graph = pws.withRespectToBasis();
+
 		points = verticesToCanvas(graph);
 		plotPoints(g);
 		plotEdges(g);
@@ -121,5 +216,6 @@ public class GraphPlot extends Canvas
 
 		return ret;
 	}
+
 
 }
