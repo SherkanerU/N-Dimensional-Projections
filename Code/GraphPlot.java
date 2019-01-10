@@ -115,6 +115,7 @@ public class GraphPlot extends JPanel
 
 		for (int i = dim; i > 2; i --)
 		{
+			pws.mixSpace();
 			if (i%2 == 0)
 			{
 				pws.reduceSpace("total mix");
@@ -186,6 +187,34 @@ public class GraphPlot extends JPanel
 		Point[] toConvert = g.vertices();
 		canvasPoint[] toReturn = new canvasPoint[toConvert.length];
 
+		/*
+		double max = -1 * toConvert[0].getMax();
+		double min = toConvert[0].getMax();
+
+		for (int i = 0; i < toConvert.length; i++)
+		{
+			if (max < Math.abs(toConvert[i].getCord(0)))
+			{
+				max = toConvert[i].getCord(0);
+			}
+			if (max < Math.abs(toConvert[i].getCord(1)))
+			{
+				max = toConvert[i].getCord(1);
+			}
+			if (min > Math.abs(toConvert[i].getCord(0)))
+			{
+				min = toConvert[i].getCord(0);
+			}
+			if (min > Math.abs(toConvert[i].getCord(1)))
+			{
+				min = toConvert[i].getCord(1);
+			}
+		}
+		*/
+
+		//System.out.println("min:" + min);
+		//System.out.println("max" + max);
+
 		for (int i = 0; i < toConvert.length; i++)
 		{
 			canvasPoint p = new canvasPoint(pointConversion(toConvert[i]));
@@ -195,13 +224,16 @@ public class GraphPlot extends JPanel
 		return toReturn;
 	}
 
-	private int[] pointConversion(Point p)								//represents a given point in terms of the current canvas size
+	private int[] pointConversion(Point p)									//represents a given point in terms of the current canvas size
 	{
-		int dim = p.getMax();											//dimension of the point
-		int adjustedDim = 2*dim;										//to shift the point over so all is positive
+		int dim = p.getMax();												//dimension of the point
+		int adjustedDim = 2*dim;											//to shift the point over so all is positive
 
 		double pX = (p.getCord(0) + (double)dim);
 		double pY = (p.getCord(1) + (double)dim);
+
+		//double pX = Math.abs(p.getCord(0));
+		//double pY = Math.abs(p.getCord(1));
 
 		double pXratio = pX/(double)adjustedDim;
 		double pYratio = pY/(double)adjustedDim;

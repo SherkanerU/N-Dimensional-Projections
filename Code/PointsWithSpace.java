@@ -85,6 +85,11 @@ public class PointsWithSpace
 		return returnGraph;
 	}
 
+	public void mixSpace()
+	{
+		space.mixBasis();
+	}
+
 	/*****************************************************
 							Getters
 	*****************************************************/
